@@ -1,6 +1,6 @@
-package com.example.diary.feature.image.domain;
+package com.example.diary_sample.feature.image.domain;
 
-import com.example.diary.feature.article.domain.Article;
+import com.example.diary_sample.feature.article.domain.Article;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package com.example.diary.feature.article.api;
+package com.example.diary_sample.feature.article.api;
 
-import com.example.diary.feature.article.domain.Article;
-import com.example.diary.feature.article.domain.ArticleRepository;
-import com.example.diary.feature.article.dto.ArticleSearchDto;
-import com.example.diary.feature.article.dto.ArticleServiceCreateRequest;
-import com.example.diary.global.util.Response;
+import com.example.diary_sample.feature.article.domain.Article;
+import com.example.diary_sample.feature.article.domain.ArticleRepository;
+import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
+import com.example.diary_sample.feature.article.dto.ArticleServiceCreateRequest;
+import com.example.diary_sample.global.util.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

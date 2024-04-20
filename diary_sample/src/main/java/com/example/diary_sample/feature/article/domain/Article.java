@@ -1,8 +1,7 @@
-package com.example.diary.feature.article.domain;
+package com.example.diary_sample.feature.article.domain;
 
-import com.example.diary.feature.article.dto.ArticleCreateRequest;
-import com.example.diary.feature.article.dto.ArticleServiceCreateRequest;
-import com.example.diary.feature.image.domain.Image;
+import com.example.diary_sample.feature.article.dto.ArticleServiceCreateRequest;
+import com.example.diary_sample.feature.image.domain.Image;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

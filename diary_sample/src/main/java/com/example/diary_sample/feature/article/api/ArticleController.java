@@ -1,8 +1,8 @@
-package com.example.diary.feature.article.api;
+package com.example.diary_sample.feature.article.api;
 
-import com.example.diary.feature.article.dto.ArticleCreateRequest;
-import com.example.diary.feature.article.dto.ArticleSearchDto;
-import com.example.diary.global.util.Response;
+import com.example.diary_sample.feature.article.dto.ArticleCreateRequest;
+import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
+import com.example.diary_sample.global.util.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

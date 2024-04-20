@@ -1,9 +1,10 @@
 package com.example.diary.feature.article.api;
 
-import com.example.diary.feature.article.domain.Article;
-import com.example.diary.feature.article.domain.ArticleRepository;
-import com.example.diary.feature.article.dto.ArticleCreateRequest;
-import com.example.diary.global.util.Response;
+import com.example.diary_sample.feature.article.api.ArticleService;
+import com.example.diary_sample.feature.article.domain.Article;
+import com.example.diary_sample.feature.article.domain.ArticleRepository;
+import com.example.diary_sample.feature.article.dto.ArticleCreateRequest;
+import com.example.diary_sample.global.util.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,8 @@
-package com.example.diary.global.util;
+package com.example.diary_sample.global.util;
 
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-
-import static org.springframework.http.HttpStatus.OK;
 
 @Getter @Builder
 public class Response<T>{
