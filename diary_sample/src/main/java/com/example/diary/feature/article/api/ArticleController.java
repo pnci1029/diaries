@@ -1,0 +1,48 @@
+package com.example.diary.feature.article.api;
+
+import com.example.diary.feature.article.dto.ArticleCreateRequest;
+import com.example.diary.feature.article.dto.ArticleSearchDto;
+import com.example.diary.global.util.Response;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/article")
+@RequiredArgsConstructor
+public class ArticleController {
+    private final ArticleService articleService;
+
+    @Operation(
+            summary = "게시글 생성",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200"
+                    )
+            }
+    )
+    @PostMapping("/create")
+    public Response<?> createArticle(@RequestBody ArticleCreateRequest request) {
+        return Response.result(articleService.createArticle(request.toService()), HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "게시글 목록 조회",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "게시글들을 성공적으로 받아왔을 때",
+                            content =
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+                    )
+            }
+    )
+    @GetMapping()
+    public Response<?> getAllArticles(@RequestBody ArticleSearchDto request) {
+        return Response.result(articleService.getAllArticles(request), HttpStatus.OK);
+    }
+}
