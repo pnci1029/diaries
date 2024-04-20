@@ -10,12 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor @Slf4j
 public class ArticleService {
     private final ArticleRepository articleRepository;
     public Response<?> getAllArticles(ArticleSearchDto request) {
-        return Response.result(articleRepository.findAll(), HttpStatus.OK);
+        return Response.result(articleRepository.searchArticles(request), HttpStatus.OK);
     }
 
     public Response<?> createArticle(ArticleServiceCreateRequest request) {

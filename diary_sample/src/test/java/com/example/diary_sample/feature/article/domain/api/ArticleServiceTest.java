@@ -1,4 +1,4 @@
-package com.example.diary.feature.article.api;
+package com.example.diary_sample.feature.article.domain.api;
 
 import com.example.diary_sample.feature.article.api.ArticleService;
 import com.example.diary_sample.feature.article.domain.Article;
