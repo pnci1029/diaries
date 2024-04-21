@@ -4,6 +4,7 @@ import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.util.List;
 import static com.example.diary_sample.feature.article.domain.QArticle.article;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-@Repository @RequiredArgsConstructor
+@Repository @RequiredArgsConstructor @Slf4j
 public class ArticleRepositoryImpl implements ArticleRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
@@ -31,7 +32,7 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom{
     }
 
     private BooleanExpression searchArticleContent(String value) {
-        return isEmpty(value) ? null : article.title.like("%"+ value + "%");
+        return isEmpty(value) ? null : article.content.like("%"+ value + "%");
     }
 
     private BooleanExpression searchArticleDate(LocalDateTime startDate, LocalDateTime endDate) {
