@@ -2,6 +2,7 @@ package com.example.diary_sample.feature.article.api;
 
 import com.example.diary_sample.feature.article.domain.Article;
 import com.example.diary_sample.feature.article.domain.ArticleRepository;
+import com.example.diary_sample.feature.article.dto.ArticleResponseDto;
 import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
 import com.example.diary_sample.feature.article.dto.ArticleServiceCreateRequest;
 import com.example.diary_sample.global.util.Response;
@@ -11,13 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor @Slf4j
 public class ArticleService {
     private final ArticleRepository articleRepository;
     public Response<?> getAllArticles(ArticleSearchDto request) {
-        return Response.result(articleRepository.searchArticles(request), HttpStatus.OK);
+        return Response.result(articleRepository.searchArticles(request).stream().map(ArticleResponseDto::of)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     public Response<?> createArticle(ArticleServiceCreateRequest request) {
