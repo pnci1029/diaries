@@ -30,12 +30,12 @@ public class Article {
     private LocalDateTime createdAt;
 
     @Builder
-    private Article(int views, String title, String content, List<Image> images) {
+    private Article(int views, String title, String content, List<Image> images, LocalDateTime createdAt) {
         this.views = views;
         this.title = title;
         this.content = content;
         this.images = images;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt;
     }
 
     public static Article create(ArticleServiceCreateRequest request) {
@@ -43,6 +43,7 @@ public class Article {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .images(request.getImage())
+                .createdAt(request.getCreatedAt())
                 .views(0)
                 .build();
     }

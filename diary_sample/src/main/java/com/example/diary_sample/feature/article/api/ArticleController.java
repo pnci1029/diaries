@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/article")
 @RequiredArgsConstructor
@@ -27,7 +29,8 @@ public class ArticleController {
     )
     @PostMapping("/create")
     public Response<?> createArticle(@RequestBody ArticleCreateRequest request) {
-        return Response.result(articleService.createArticle(request.toService()), HttpStatus.OK);
+        LocalDateTime now = LocalDateTime.now();
+        return Response.result(articleService.createArticle(request.toService(now)), HttpStatus.OK);
     }
 
     @Operation(
