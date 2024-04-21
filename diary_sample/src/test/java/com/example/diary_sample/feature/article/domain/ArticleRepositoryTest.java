@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +30,15 @@ class ArticleRepositoryTest {
     @Test
     void searchAllArticles() {
         // given
+        LocalDateTime now = LocalDateTime.of(2024,4,1,14,0,0);
+
         String title1 = "title1";
         String title2 = "title2";
         String content1 = "content1";
         String content2 = "content2";
 
-        ArticleServiceCreateRequest article1 = createArticles(title1, content1);
-        ArticleServiceCreateRequest article2 = createArticles(title2, content2);
+        ArticleServiceCreateRequest article1 = createArticles(title1, content1, now);
+        ArticleServiceCreateRequest article2 = createArticles(title2, content2, now);
 
         articleRepository.saveAll(List.of(Article.create(article1), Article.create(article2)));
 
@@ -61,13 +64,15 @@ class ArticleRepositoryTest {
     @Test
     void searchArticlesByTitleAndContent() {
         // given
+        LocalDateTime now = LocalDateTime.of(2024,4,1,14,0,0);
+
         String title1 = "title1";
         String title2 = "title2";
         String content1 = "content1";
         String content2 = "content2";
 
-        ArticleServiceCreateRequest article1 = createArticles(title1, content1);
-        ArticleServiceCreateRequest article2 = createArticles(title2, content2);
+        ArticleServiceCreateRequest article1 = createArticles(title1, content1, now);
+        ArticleServiceCreateRequest article2 = createArticles(title2, content2, now);
 
         articleRepository.saveAll(List.of(Article.create(article1), Article.create(article2)));
 
@@ -89,13 +94,51 @@ class ArticleRepositoryTest {
                 );
     }
 
+    @DisplayName("검색을 원하는 날짜 정보에 충족되는 게시물들을 조회한다.")
+    @Test
+    void searchArticlesByTime() {
+        // given
+        LocalDateTime now = LocalDateTime.of(2024,4,1,14,0,0);
+
+        String title1 = "title1";
+        String title2 = "title2";
+        String content1 = "content1";
+        String content2 = "content2";
+
+        ArticleServiceCreateRequest article1 = createArticles(title1, content1, now);
+        ArticleServiceCreateRequest article2 = createArticles(title2, content2, now.plusHours(1));
+
+        articleRepository.saveAll(List.of(Article.create(article1), Article.create(article2)));
+
+        LocalDateTime start = LocalDateTime.of(2024, 4, 1, 14, 59, 59);
+        LocalDateTime end = LocalDateTime.of(2024, 4, 1, 15, 1, 0);
+
+        ArticleSearchDto search = ArticleSearchDto.builder()
+                .startDate(start)
+                .endDate(end)
+                .build();
+
+        // when
+        List<Article> result = articleRepository.searchArticles(search);
+
+        // then
+        assertThat(result).hasSize(1);
+        assertThat(result).isNotEmpty();
+        assertThat(result)
+                .extracting("title", "content")
+                .containsExactlyInAnyOrder(
+                        tuple(title2, content2)
+                );
+    }
 
 
-    private ArticleServiceCreateRequest createArticles(String title, String content) {
+
+    private ArticleServiceCreateRequest createArticles(String title, String content, LocalDateTime now) {
         return ArticleServiceCreateRequest.builder()
                 .title(title)
                 .content(content)
                 .image(new ArrayList<>())
+                .createdAt(now)
                 .build();
 
     }
