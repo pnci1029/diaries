@@ -89,6 +89,41 @@ class ArticleServiceTest {
                 );
     }
 
+    @DisplayName("제목과 내용으로 검색된 게시물을 조회한다.")
+    @Test
+    void getArticlesByTitleAndContent() {
+        // given
+        String title1 = "111";
+        String title2 = "222";
+        String content1 = "333";
+        String content2 = "444";
+        LocalDateTime now = LocalDateTime.of(2024,4,1,16,0,0);
+
+        ArticleCreateRequest request1 = createTestRequest(title1, content1);
+        ArticleCreateRequest request2 = createTestRequest(title2, content2);
+        articleRepository.saveAll(
+                List.of(Article.create(request1.toService(now)),
+                        Article.create(request2.toService(now))));
+
+        ArticleSearchDto search = ArticleSearchDto.builder()
+                .title(title2)
+                .content(content2)
+                .build();
+
+        // when
+        Response<?> result = articleService.getAllArticles(search);
+        List<ArticleResponseDto> data = om.convertValue(result.getData(), new TypeReference<List<ArticleResponseDto>>(){});
+
+        // then
+        assertThat(result.getData()).isNotNull();
+        assertThat(result.getStatusNumber()).isEqualTo(200);
+        assertThat(data)
+                .extracting("title", "content")
+                .containsExactlyInAnyOrder(
+                        tuple(title2, content2)
+                );
+    }
+
 
     private ArticleCreateRequest createTestRequest(String title, String content) {
         return ArticleCreateRequest.builder()
