@@ -9,6 +9,7 @@ import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
 import com.example.diary_sample.global.util.Response;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ class ArticleServiceTest {
 
     @Autowired
     ObjectMapper om;
+
+    @AfterEach
+    void tearDown() {
+        articleRepository.deleteAllInBatch();
+    }
 
     @DisplayName("내용과 제목을 입력하여 게시글을 생성한다.")
     @Test
@@ -117,10 +123,50 @@ class ArticleServiceTest {
         // then
         assertThat(result.getData()).isNotNull();
         assertThat(result.getStatusNumber()).isEqualTo(200);
-        assertThat(data)
+        assertThat(data).hasSize(1)
                 .extracting("title", "content")
                 .containsExactlyInAnyOrder(
                         tuple(title2, content2)
+                );
+    }
+
+    @DisplayName("날짜를 검색했을때 해당하는 게시물들을 조회한다.")
+    @Test
+    void getArticlesByDate() {
+        // given
+        String title1 = "111";
+        String title2 = "112";
+        String title3 = "113";
+        String content1 = "222";
+        String content2 = "223";
+        String content3 = "224";
+        LocalDateTime now = LocalDateTime.of(2024,4,1,16,0,0);
+
+        ArticleCreateRequest request1 = createTestRequest(title1, content1);
+        ArticleCreateRequest request2 = createTestRequest(title2, content2);
+        ArticleCreateRequest request3 = createTestRequest(title3, content3);
+        articleRepository.saveAll(
+                List.of(Article.create(request1.toService(now)), // 20240401 16:00
+                        Article.create(request2.toService(now.plusHours(1))), // 20240401 17:00
+                        Article.create(request3.toService(now.plusMinutes(58))))); // 20240401 16:59
+
+        ArticleSearchDto search = ArticleSearchDto.builder()
+                .startDate(LocalDateTime.of(2024,4,1,15,59))
+                .endDate(LocalDateTime.of(2024,4,1,16,59))
+                .build();
+
+        // when
+        Response<?> result = articleService.getAllArticles(search);
+        List<ArticleResponseDto> data = om.convertValue(result.getData(), new TypeReference<List<ArticleResponseDto>>(){});
+
+        // then
+        assertThat(result.getData()).isNotNull();
+        assertThat(result.getStatusNumber()).isEqualTo(200);
+        assertThat(data).hasSize(2)
+                .extracting("title", "content")
+                .containsExactlyInAnyOrder(
+                        tuple(title1, content1),
+                        tuple(title3, content3)
                 );
     }
 
