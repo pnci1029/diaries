@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -28,9 +28,9 @@ public class ArticleController {
             }
     )
     @PostMapping("/create")
-    public Response<?> createArticle(@RequestBody ArticleCreateRequest request) {
+    public Response<?> createArticle(@RequestBody @Validated ArticleCreateRequest request) {
         LocalDateTime now = LocalDateTime.now();
-        return Response.result(articleService.createArticle(request.toService(now)), HttpStatus.OK);
+        return Response.ok(articleService.createArticle(request.toService(now)));
     }
 
     @Operation(
@@ -58,6 +58,6 @@ public class ArticleController {
                 .endDate(endDate)
                 .build();
 
-        return Response.result(articleService.getAllArticles(request), HttpStatus.OK);
+        return Response.ok(articleService.getAllArticles(request));
     }
 }
