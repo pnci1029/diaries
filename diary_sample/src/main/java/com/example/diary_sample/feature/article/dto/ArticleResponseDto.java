@@ -13,18 +13,17 @@ public class ArticleResponseDto {
     private Long articleIdx;
     private String title;
     private String content;
-    private Long views;
+    private int views;
     private LocalDateTime createdAt;
 //    private List<Image> images;
 
     @Builder
-    private ArticleResponseDto(Long articleIdx, String title, String content, Long views, LocalDateTime createdAt, List<Image> images) {
+    private ArticleResponseDto(Long articleIdx, String title, String content, int views, LocalDateTime createdAt) {
         this.articleIdx = articleIdx;
         this.title = title;
         this.content = content;
         this.views = views;
         this.createdAt = createdAt;
-//        this.images = images;
     }
 
 
@@ -34,7 +33,7 @@ public class ArticleResponseDto {
                 .title(article.getTitle())
                 .content(article.getContent())
                 .createdAt(article.getCreatedAt())
-                .images(article.getImages())
+                .views(article.getViews())
                 .build();
     }
 }

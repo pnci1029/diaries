@@ -42,7 +42,6 @@ public class Article {
         return Article.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .images(request.getImage())
                 .createdAt(request.getCreatedAt())
                 .views(0)
                 .build();

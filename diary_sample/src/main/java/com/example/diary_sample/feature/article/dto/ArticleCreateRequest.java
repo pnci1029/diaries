@@ -1,8 +1,7 @@
 package com.example.diary_sample.feature.article.dto;
 
-import com.example.diary_sample.feature.image.domain.Image;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,8 +10,8 @@ import java.util.List;
 
 @Getter
 public class ArticleCreateRequest {
-    @Nullable
-    private List<Image> image;
+    @NotNull
+    private List<String> images;
     @NotEmpty
     private String title;
     @NotEmpty
@@ -23,14 +22,14 @@ public class ArticleCreateRequest {
         return ArticleServiceCreateRequest.builder()
                 .title(this.title)
                 .content(this.content)
-                .image(this.image)
+                .images(this.images)
                 .createdAt(createdAt)
                 .build();
     }
 
     @Builder
-    public ArticleCreateRequest(List<Image> image, String title, String content, LocalDateTime createdAt) {
-        this.image = image;
+    public ArticleCreateRequest(List<String> images, String title, String content, LocalDateTime createdAt) {
+        this.images = images;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;

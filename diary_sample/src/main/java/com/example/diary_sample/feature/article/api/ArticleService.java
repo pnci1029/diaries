@@ -5,6 +5,8 @@ import com.example.diary_sample.feature.article.domain.ArticleRepository;
 import com.example.diary_sample.feature.article.dto.ArticleResponseDto;
 import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
 import com.example.diary_sample.feature.article.dto.ArticleServiceCreateRequest;
+import com.example.diary_sample.feature.image.domain.Image;
+import com.example.diary_sample.feature.image.domain.ImageRepository;
 import com.example.diary_sample.global.util.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,13 +20,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor @Slf4j
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final ImageRepository imageRepository;
     public Response<?> getAllArticles(ArticleSearchDto request) {
         return Response.result(articleRepository.searchArticles(request).stream().map(ArticleResponseDto::of)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     public Response<?> createArticle(ArticleServiceCreateRequest request) {
-        Article article = Article.create(request);
-        return Response.result(articleRepository.save(article), HttpStatus.OK);
+
+        Article article = articleRepository.save(Article.create(request));
+        request.getImages().forEach(image -> imageRepository.save(Image.create(image, article)));
+
+        return Response.result(ArticleResponseDto.of(article), HttpStatus.OK);
     }
 }
