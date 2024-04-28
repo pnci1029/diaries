@@ -6,6 +6,8 @@ import com.example.diary_sample.feature.article.domain.ArticleRepository;
 import com.example.diary_sample.feature.article.dto.ArticleCreateRequest;
 import com.example.diary_sample.feature.article.dto.ArticleResponseDto;
 import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
+import com.example.diary_sample.feature.image.domain.Image;
+import com.example.diary_sample.feature.image.domain.ImageRepository;
 import com.example.diary_sample.global.util.Response;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,12 +30,14 @@ class ArticleServiceTest {
     ArticleService articleService;
     @Autowired
     ArticleRepository articleRepository;
-
+    @Autowired
+    ImageRepository imageRepository;
     @Autowired
     ObjectMapper om;
 
     @AfterEach
     void tearDown() {
+        imageRepository.deleteAllInBatch();
         articleRepository.deleteAllInBatch();
     }
 
@@ -42,12 +46,16 @@ class ArticleServiceTest {
     void createArticle() {
         // given
         LocalDateTime now = LocalDateTime.of(2024,4,1,16,0,0);
+        List<String> images = List.of("image1", "image2");
 
-        ArticleCreateRequest request1 = createTestRequest("111", "222");
-        ArticleCreateRequest request2 = createTestRequest("112", "223");
-        articleRepository.saveAll(
-                List.of(Article.create(request1.toService(now)),
-                        Article.create(request2.toService(now))));
+        ArticleCreateRequest request1 = createTestRequest("111", "222", images);
+        ArticleCreateRequest request2 = createTestRequest("112", "223", images);
+
+        Article article1 = Article.create(request1.toService(now));
+        Article article2 = Article.create(request2.toService(now));
+        articleRepository.saveAll(List.of(article1, article2));
+
+        imageRepository.saveAll(List.of(Image.create(images.get(0), article1), Image.create(images.get(1), article2)));
 
         // when
         Response<?> result = articleService.createArticle(request1.toService(now));
@@ -68,10 +76,11 @@ class ArticleServiceTest {
         String title2 = "222";
         String content1 = "222";
         String content2 = "223";
+        List<String> images = List.of("image1", "image2");
         LocalDateTime now = LocalDateTime.of(2024,4,1,16,0,0);
 
-        ArticleCreateRequest request1 = createTestRequest(title1, content1);
-        ArticleCreateRequest request2 = createTestRequest(title2, content2);
+        ArticleCreateRequest request1 = createTestRequest(title1, content1, images);
+        ArticleCreateRequest request2 = createTestRequest(title2, content2, images);
         articleRepository.saveAll(
                 List.of(Article.create(request1.toService(now)),
                         Article.create(request2.toService(now))));
@@ -103,10 +112,11 @@ class ArticleServiceTest {
         String title2 = "222";
         String content1 = "333";
         String content2 = "444";
+        List<String> images = List.of("image1", "image2");
         LocalDateTime now = LocalDateTime.of(2024,4,1,16,0,0);
 
-        ArticleCreateRequest request1 = createTestRequest(title1, content1);
-        ArticleCreateRequest request2 = createTestRequest(title2, content2);
+        ArticleCreateRequest request1 = createTestRequest(title1, content1, images);
+        ArticleCreateRequest request2 = createTestRequest(title2, content2,images);
         articleRepository.saveAll(
                 List.of(Article.create(request1.toService(now)),
                         Article.create(request2.toService(now))));
@@ -140,11 +150,12 @@ class ArticleServiceTest {
         String content1 = "222";
         String content2 = "223";
         String content3 = "224";
+        List<String> images = List.of("image1", "image2");
         LocalDateTime now = LocalDateTime.of(2024,4,1,16,0,0);
 
-        ArticleCreateRequest request1 = createTestRequest(title1, content1);
-        ArticleCreateRequest request2 = createTestRequest(title2, content2);
-        ArticleCreateRequest request3 = createTestRequest(title3, content3);
+        ArticleCreateRequest request1 = createTestRequest(title1, content1, images);
+        ArticleCreateRequest request2 = createTestRequest(title2, content2, images);
+        ArticleCreateRequest request3 = createTestRequest(title3, content3, images);
         articleRepository.saveAll(
                 List.of(Article.create(request1.toService(now)), // 20240401 16:00
                         Article.create(request2.toService(now.plusHours(1))), // 20240401 17:00
@@ -171,10 +182,11 @@ class ArticleServiceTest {
     }
 
 
-    private ArticleCreateRequest createTestRequest(String title, String content) {
+    private ArticleCreateRequest createTestRequest(String title, String content, List<String> imageName) {
         return ArticleCreateRequest.builder()
                 .title(title)
                 .content(content)
+                .images(imageName)
                 .build();
     }
 

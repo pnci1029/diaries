@@ -2,6 +2,7 @@ package com.example.diary_sample.feature.article.domain;
 
 import com.example.diary_sample.feature.article.dto.ArticleSearchDto;
 import com.example.diary_sample.feature.article.dto.ArticleServiceCreateRequest;
+import com.example.diary_sample.feature.image.domain.ImageRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,9 +21,12 @@ class ArticleRepositoryTest {
 
     @Autowired
     ArticleRepository articleRepository;
+    @Autowired
+    ImageRepository imageRepository;
 
     @AfterEach
     void tearDown() {
+        imageRepository.deleteAllInBatch();
         articleRepository.deleteAllInBatch();
     }
 
@@ -137,7 +141,7 @@ class ArticleRepositoryTest {
         return ArticleServiceCreateRequest.builder()
                 .title(title)
                 .content(content)
-                .image(new ArrayList<>())
+//                .image(new ArrayList<>())
                 .createdAt(now)
                 .build();
 
