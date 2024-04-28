@@ -1,7 +1,6 @@
 package com.example.diary_sample.feature.article.dto;
 
 import com.example.diary_sample.feature.article.domain.Article;
-import com.example.diary_sample.feature.image.domain.Image;
 import lombok.Builder;
 import lombok.Getter;
 

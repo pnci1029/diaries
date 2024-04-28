@@ -22,6 +22,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final ImageRepository imageRepository;
     public Response<?> getAllArticles(ArticleSearchDto request) {
+
         return Response.result(articleRepository.searchArticles(request).stream().map(ArticleResponseDto::of)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }

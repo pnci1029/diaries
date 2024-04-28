@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.example.diary_sample.feature.article.domain.QArticle.article;
+import static com.example.diary_sample.feature.image.domain.QImage.image;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 @Repository @RequiredArgsConstructor @Slf4j
@@ -21,6 +22,7 @@ public class ArticleRepositoryImpl implements ArticleRepositoryCustom{
     public List<Article> searchArticles(ArticleSearchDto searchDto) {
 
         return queryFactory.selectFrom(article)
+                .leftJoin(article.images, image).fetchJoin()
                 .where(searchArticleTitle(searchDto.getTitle()))
                 .where(searchArticleContent(searchDto.getContent()))
                 .where(searchArticleDate(searchDto.getStartDate(), searchDto.getEndDate()))

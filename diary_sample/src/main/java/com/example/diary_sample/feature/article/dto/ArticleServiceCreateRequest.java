@@ -13,7 +13,7 @@ import java.util.List;
 public class ArticleServiceCreateRequest {
 
     @Nullable
-    private List<Image> image;
+    private List<String> images;
     @NotEmpty
     private String title;
     @NotEmpty
@@ -21,8 +21,8 @@ public class ArticleServiceCreateRequest {
     private LocalDateTime createdAt;
 
     @Builder
-    private ArticleServiceCreateRequest(List<Image> image, String title, String content, LocalDateTime createdAt) {
-        this.image = image;
+    private ArticleServiceCreateRequest(List<String> images, String title, String content, LocalDateTime createdAt) {
+        this.images = images;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;

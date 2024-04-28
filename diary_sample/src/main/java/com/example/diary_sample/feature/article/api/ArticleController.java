@@ -44,8 +44,20 @@ public class ArticleController {
                     )
             }
     )
-    @GetMapping()
-    public Response<?> getAllArticles(@RequestBody ArticleSearchDto request) {
+    @GetMapping("")
+    public Response<?> getAllArticles(
+            @RequestParam(defaultValue = "") String title,
+            @RequestParam(defaultValue = "") String content,
+            @RequestParam(defaultValue = "1999-01-01T00:00") LocalDateTime startDate,
+            @RequestParam(defaultValue = "2999-01-01T00:00") LocalDateTime endDate
+    ) {
+        ArticleSearchDto request = ArticleSearchDto.builder()
+                .title(title)
+                .content(content)
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
+
         return Response.result(articleService.getAllArticles(request), HttpStatus.OK);
     }
 }
