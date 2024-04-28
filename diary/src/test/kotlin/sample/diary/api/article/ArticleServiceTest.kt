@@ -1,6 +1,7 @@
 package sample.diary.api.article
 
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
+import org.assertj.core.api.AssertionsForClassTypes.tuple
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -41,11 +42,13 @@ internal class ArticleServiceTest{
 
         // when
         val result = articleService.createArticle(request1)
-        println(result.statusCode)
-        println(result.body)
 
         // then
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(result.body).extracting("title","content")
+            .containsExactlyInAnyOrder(
+            tuple(title2, content2)
+        );
     }
 
     fun createArticles(title : String, content: String): ArticleServiceRequest {
