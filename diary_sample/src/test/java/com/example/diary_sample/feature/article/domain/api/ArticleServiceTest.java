@@ -58,12 +58,11 @@ class ArticleServiceTest {
         imageRepository.saveAll(List.of(Image.create(images.get(0), article1), Image.create(images.get(1), article2)));
 
         // when
-        Response<?> result = articleService.createArticle(request1.toService(now));
+        ArticleResponseDto result = articleService.createArticle(request1.toService(now));
 
         // then
         assertThat(result).isNotNull();
-        assertThat(result.getHttpStatus().value()).isEqualTo(200);
-        assertThat(result.getData()).extracting(
+        assertThat(result).extracting(
                 "title", "content"
         ).contains("111", "222");
     }
@@ -88,15 +87,13 @@ class ArticleServiceTest {
         ArticleSearchDto search = ArticleSearchDto.builder().build();
 
         // when
-        Response<?> result = articleService.getAllArticles(search);
+        List<ArticleResponseDto> result = articleService.getAllArticles(search);
 
-        List<ArticleResponseDto> data = om.convertValue(result.getData(), new TypeReference<List<ArticleResponseDto>>(){});
 
         // then
 
-        assertThat(result.getData()).isNotNull();
-        assertThat(result.getStatusNumber()).isEqualTo(200);
-        assertThat(data)
+        assertThat(result).isNotNull();
+        assertThat(result)
                 .extracting("title", "content")
                 .containsExactlyInAnyOrder(
                         tuple(title1, content1),
@@ -127,13 +124,11 @@ class ArticleServiceTest {
                 .build();
 
         // when
-        Response<?> result = articleService.getAllArticles(search);
-        List<ArticleResponseDto> data = om.convertValue(result.getData(), new TypeReference<List<ArticleResponseDto>>(){});
+        List<ArticleResponseDto> result = articleService.getAllArticles(search);
 
         // then
-        assertThat(result.getData()).isNotNull();
-        assertThat(result.getStatusNumber()).isEqualTo(200);
-        assertThat(data).hasSize(1)
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(1)
                 .extracting("title", "content")
                 .containsExactlyInAnyOrder(
                         tuple(title2, content2)
@@ -167,20 +162,17 @@ class ArticleServiceTest {
                 .build();
 
         // when
-        Response<?> result = articleService.getAllArticles(search);
-        List<ArticleResponseDto> data = om.convertValue(result.getData(), new TypeReference<List<ArticleResponseDto>>(){});
+        List<ArticleResponseDto> result = articleService.getAllArticles(search);
 
         // then
-        assertThat(result.getData()).isNotNull();
-        assertThat(result.getStatusNumber()).isEqualTo(200);
-        assertThat(data).hasSize(2)
+        assertThat(result).isNotNull();
+        assertThat(result).hasSize(2)
                 .extracting("title", "content")
                 .containsExactlyInAnyOrder(
                         tuple(title1, content1),
                         tuple(title3, content3)
                 );
     }
-
 
     private ArticleCreateRequest createTestRequest(String title, String content, List<String> imageName) {
         return ArticleCreateRequest.builder()

@@ -21,17 +21,17 @@ import java.util.stream.Collectors;
 public class ArticleService {
     private final ArticleRepository articleRepository;
     private final ImageRepository imageRepository;
-    public Response<?> getAllArticles(ArticleSearchDto request) {
+    public List<ArticleResponseDto> getAllArticles(ArticleSearchDto request) {
 
-        return Response.result(articleRepository.searchArticles(request).stream().map(ArticleResponseDto::of)
-                .collect(Collectors.toList()), HttpStatus.OK);
+        return articleRepository.searchArticles(request).stream().map(ArticleResponseDto::of)
+                .collect(Collectors.toList());
     }
 
-    public Response<?> createArticle(ArticleServiceCreateRequest request) {
+    public ArticleResponseDto createArticle(ArticleServiceCreateRequest request) {
 
         Article article = articleRepository.save(Article.create(request));
         request.getImages().forEach(image -> imageRepository.save(Image.create(image, article)));
 
-        return Response.result(ArticleResponseDto.of(article), HttpStatus.OK);
+        return ArticleResponseDto.of(article);
     }
 }
