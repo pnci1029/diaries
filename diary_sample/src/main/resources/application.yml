@@ -24,3 +24,6 @@ logging:
     org.hibernate.type: trace
 server:
   port: 8880
+
+jwt:
+  secret: dfsfnlskavnflksnfvlaskdnvf1iewe
