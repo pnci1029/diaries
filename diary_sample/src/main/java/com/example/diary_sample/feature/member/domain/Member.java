@@ -1,6 +1,7 @@
 package com.example.diary_sample.feature.member.domain;
 
 import com.example.diary_sample.feature.member.domain.enums.JoinType;
+import com.example.diary_sample.feature.member.domain.enums.MemberRole;
 import com.example.diary_sample.feature.member.dto.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -24,15 +25,18 @@ public class Member {
     private String nickName;
     @Enumerated(EnumType.STRING)
     private JoinType joinType;
+    @Enumerated(EnumType.STRING)
+    private MemberRole memberRole;
 
     @Builder
-    private Member(String name, String email, String password, String cellPhone, String nickName, JoinType joinType) {
+    private Member(String name, String email, String password, String cellPhone, String nickName, JoinType joinType, MemberRole memberRole) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.cellPhone = cellPhone;
         this.nickName = nickName;
         this.joinType = joinType;
+        this.memberRole = memberRole;
     }
 
     public static Member of(SignUpRequest request) {
@@ -43,6 +47,7 @@ public class Member {
                 .joinType(request.getJoinType())
                 .nickName(request.getNickName())
                 .cellPhone(request.getCellPhone())
+                .memberRole(request.getMemberRole())
                 .build();
     }
 
