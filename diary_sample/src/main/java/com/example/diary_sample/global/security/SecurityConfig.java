@@ -11,15 +11,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @RequiredArgsConstructor
-public class SecurityConfig  {
+public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService customUserDetailsService;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     private final String[] AUTH_LIST = {
             "/**"
@@ -50,11 +53,11 @@ public class SecurityConfig  {
         );
 
         // 커스텀 익셉션 핸들링 구현
-//        http.exceptionHandling((exception) ->
-//                exception
-//                .authenticationEntryPoint((AuthenticationEntryPoint) new AccessDeniedHandlerImpl())
-//                .accessDeniedHandler(new AccessDeniedHandlerImpl())
-//        );
+        http.exceptionHandling((exception) ->
+                exception
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler)
+        );
 
         return http.build();
     }
