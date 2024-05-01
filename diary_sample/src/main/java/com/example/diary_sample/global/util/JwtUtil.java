@@ -1,6 +1,6 @@
 package com.example.diary_sample.global.util;
 
-import com.example.diary_sample.feature.member.dto.SignUpRequest;
+import com.example.diary_sample.feature.member.dto.MemberInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -21,12 +21,13 @@ public class JwtUtil {
     private final long expirationTime = 24 * 60 * 60 * 365;
 
 
-    public String createToken(SignUpRequest request) {
+    public String createToken(MemberInfo request) {
         return createToken(request, expirationTime);
     }
 
-    private String createToken(SignUpRequest request, long expireTime) {
+    private String createToken(MemberInfo request, long expireTime) {
         Claims claims = Jwts.claims();
+        claims.put("id", request.getId());
         claims.put("email", request.getEmail());
         claims.put("name", request.getName());
         claims.put("role", request.getMemberRole());
@@ -63,8 +64,11 @@ public class JwtUtil {
     }
 
     // getUserId?
-    public String getUserEmail(String email) {
-        return parseClaims(email).get("email", String.class);
+    public String getUserId(String token) {
+        return parseClaims(token).get("id", String.class);
+    }
+    public String getUserEmail(String token) {
+        return parseClaims(token).get("email", String.class);
     }
 
 }
