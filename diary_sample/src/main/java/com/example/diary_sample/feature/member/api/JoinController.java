@@ -1,6 +1,6 @@
-package com.example.diary_sample.feature.article.api;
+package com.example.diary_sample.feature.member.api;
 
-import com.example.diary_sample.feature.article.dto.SignUpRequest;
+import com.example.diary_sample.feature.member.dto.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

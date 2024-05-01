@@ -1,8 +1,8 @@
-package com.example.diary_sample.feature.article.api;
+package com.example.diary_sample.feature.member.api;
 
-import com.example.diary_sample.feature.article.domain.Member;
-import com.example.diary_sample.feature.article.domain.MemberRepository;
-import com.example.diary_sample.feature.article.dto.SignUpRequest;
+import com.example.diary_sample.feature.member.domain.Member;
+import com.example.diary_sample.feature.member.domain.MemberRepository;
+import com.example.diary_sample.feature.member.dto.SignUpRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

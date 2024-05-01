@@ -1,6 +1,6 @@
-package com.example.diary_sample.feature.article.dto;
+package com.example.diary_sample.feature.member.dto;
 
-import com.example.diary_sample.feature.article.domain.enums.JoinType;
+import com.example.diary_sample.feature.member.domain.enums.JoinType;
 import lombok.Getter;
 
 @Getter

@@ -1,7 +1,7 @@
-package com.example.diary_sample.feature.article.domain;
+package com.example.diary_sample.feature.member.domain;
 
-import com.example.diary_sample.feature.article.domain.enums.JoinType;
-import com.example.diary_sample.feature.article.dto.SignUpRequest;
+import com.example.diary_sample.feature.member.domain.enums.JoinType;
+import com.example.diary_sample.feature.member.dto.SignUpRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
