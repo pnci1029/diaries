@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -140,7 +141,7 @@ class ArticleRepositoryTest {
         return ArticleServiceCreateRequest.builder()
                 .title(title)
                 .content(content)
-//                .image(new ArrayList<>())
+                .images(List.of("image1","image2"))
                 .createdAt(now)
                 .build();
 

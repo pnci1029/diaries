@@ -2,6 +2,7 @@ package com.example.diary_sample.feature.article.api;
 
 import com.example.diary_sample.feature.article.dto.ArticleCreateRequest;
 import com.example.diary_sample.feature.article.support.ControllerTestSupport;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -17,6 +18,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ArticleControllerTest extends ControllerTestSupport {
+
+    @AfterEach
+    void tearDown() {
+
+    }
 
     @DisplayName("게시글을 생성하는 요청을 받아 처리한다.")
     @Test
@@ -65,6 +71,32 @@ class ArticleControllerTest extends ControllerTestSupport {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.statusNumber").value(400))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("이미지 속성은 필수입니다."))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data").isEmpty())
+        ;
+    }
+
+    @DisplayName("게시글 생성 시 제목을 기입하지 않으면 예외 처리를 한다.")
+    @Test
+    void createArticleWithoutText() throws Exception {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        ArticleCreateRequest request = ArticleCreateRequest.builder()
+                .title("")
+                .content("content")
+                .images(List.of("image1","image2"))
+                .createdAt(now)
+                .build();
+
+        // when // then
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/article/create")
+                        .content(om.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.statusNumber").value(400))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("제목 기입은 필수입니다."))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data").isEmpty())
         ;
     }
