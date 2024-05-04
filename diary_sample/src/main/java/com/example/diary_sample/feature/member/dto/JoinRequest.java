@@ -5,7 +5,7 @@ import com.example.diary_sample.feature.member.domain.enums.MemberRole;
 import lombok.Getter;
 
 @Getter
-public class SignUpRequest {
+public class JoinRequest {
 
     private String name;
     private String email;

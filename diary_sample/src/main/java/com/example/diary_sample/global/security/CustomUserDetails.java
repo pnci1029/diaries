@@ -1,7 +1,6 @@
 package com.example.diary_sample.global.security;
 
 import com.example.diary_sample.feature.member.dto.MemberInfo;
-import com.example.diary_sample.feature.member.dto.SignUpRequest;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

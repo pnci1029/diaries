@@ -2,7 +2,7 @@ package com.example.diary_sample.feature.member.domain;
 
 import com.example.diary_sample.feature.member.domain.enums.JoinType;
 import com.example.diary_sample.feature.member.domain.enums.MemberRole;
-import com.example.diary_sample.feature.member.dto.SignUpRequest;
+import com.example.diary_sample.feature.member.dto.JoinRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -39,7 +39,7 @@ public class Member {
         this.memberRole = memberRole;
     }
 
-    public static Member of(SignUpRequest request) {
+    public static Member of(JoinRequest request) {
         return Member.builder()
                 .name(request.getName())
                 .email(request.getEmail())
