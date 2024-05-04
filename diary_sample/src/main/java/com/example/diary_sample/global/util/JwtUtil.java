@@ -4,7 +4,8 @@ import com.example.diary_sample.feature.member.dto.MemberInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,11 +14,11 @@ import java.security.Key;
 import java.sql.Date;
 import java.time.ZonedDateTime;
 
-@Component @Slf4j @RequiredArgsConstructor
+@Component @Slf4j
 public class JwtUtil {
-    private final Key key;
     @Value("${jwt.secret}")
-    private final String secret;
+    private String secret;
+    private final Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     private final long expirationTime = 24 * 60 * 60 * 365;
 
 
@@ -36,8 +37,8 @@ public class JwtUtil {
         ZonedDateTime tokenValidate = now.plusSeconds(expireTime);
 
         return Jwts.builder()
-                .setClaims(claims
-                .setIssuedAt(Date.from(now.toInstant())))
+                .setClaims(claims)
+                .setIssuedAt(Date.from(now.toInstant()))
                 .setExpiration(Date.from(tokenValidate.toInstant()))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
