@@ -27,3 +27,4 @@ server:
 
 jwt:
   secret: dfsfnlskavnflksnfvlaskdnvf1iewe
+  expirationTime: 1440

@@ -4,23 +4,31 @@ import com.example.diary_sample.feature.member.dto.MemberInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.sql.Date;
 import java.time.ZonedDateTime;
+import java.util.Base64;
 
 @Component @Slf4j
 public class JwtUtil {
+
+    private Key key;
     @Value("${jwt.secret}")
     private String secret;
-    private final Key key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
-    private final long expirationTime = 24 * 60 * 60 * 365;
+    @Value("${jwt.expirationTime}")
+    private long expirationTime;
 
+    @PostConstruct
+    public void init() {
+        byte[] decodedSecret = Base64.getDecoder().decode(secret);
+        this.key = new SecretKeySpec(decodedSecret, SignatureAlgorithm.HS256.getJcaName());
+    }
 
     public String createToken(MemberInfo request) {
         return createToken(request, expirationTime);
