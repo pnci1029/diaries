@@ -1,8 +1,7 @@
 import {useCallback, useState} from "react";
 import {getArticlesAsync} from "../../store/articleSlice";
 import {ArticleResponseDto} from "../types/Article";
-import {useDispatch} from "react-redux";
-import {MainApi} from "../../../api/MainApi";
+import {useAppDispatch} from "../../hooks/hooks";
 
 interface ReturnType {
     // getArticles: (title: string) => Promise<ArticleResponseDto>;
@@ -10,14 +9,14 @@ interface ReturnType {
 }
 
 export function useArticleGetter(): { getArticles: () => any } {
-    // const dispatch = useAppDispatch();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [article, setArticle] = useState<ArticleResponseDto | undefined>();
 
     const getArticles = useCallback(
         async () => {
-            // const result: ArticleResponseDto = await dispatch(getArticlesAsync).unwrap();
-            let result = getArticlesAsync();
+            dispatch(getArticlesAsync());
+            const result: ArticleResponseDto = await dispatch(getArticlesAsync()).unwrap();
+
             return {
                 ...result,
                 // content: result.content.map((dto) => ({ ...dto } as ArticleResponseDto)),
@@ -26,6 +25,7 @@ export function useArticleGetter(): { getArticles: () => any } {
         [dispatch]
     );
 
+    console.log(getArticles)
     // const getArticles = useCallback(
     //     () => {
     //         return dispatch(getArticlesAsync())
