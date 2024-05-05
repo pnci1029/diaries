@@ -1,6 +1,7 @@
 import axios, {AxiosInstance} from "axios";
+import {HttpClient} from "../component/hooks/HttpClient";
 
-export class MainApi {
+export class MainApi extends HttpClient{
     private static classInstance?: MainApi;
     public readonly instance: AxiosInstance = axios.create();
 
@@ -8,10 +9,13 @@ export class MainApi {
     public static urlPrefix = "/api";
     public static processUrl = process.env.REACT_APP_BASE_URL;
 
+    // private constructor() {
+    //     this.instance = axios.create({
+    //         baseURL: MainApi.processUrl,
+    //     });
+    // }
     private constructor() {
-        this.instance = axios.create({
-            baseURL: MainApi.processUrl,
-        });
+        super(process.env.REACT_APP_BASE_URL as string);
     }
 
     public static getInstance() {
