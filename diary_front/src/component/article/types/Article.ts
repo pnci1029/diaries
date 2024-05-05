@@ -11,5 +11,5 @@ export interface ArticleResponseDto{
 }
 
 export interface ArticleStatus{
-
+    status1: "WAIT";
 }

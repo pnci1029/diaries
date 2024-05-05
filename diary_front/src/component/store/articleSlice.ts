@@ -1,9 +1,25 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ArticleApi} from "../../api/ArticleApi";
 
 const initialState = {
+    isArticleDataSaved: true,
     test: "TEST",
 };
+
+export const articleSlice = createSlice({
+    name: "article",
+    initialState,
+    reducers: {
+        setIsArticleDataSaved: (state, action: PayloadAction<boolean>) => {
+            state.isArticleDataSaved = action.payload;
+        },
+    },
+    extraReducers: (builder) => {
+    },
+});
+
+export const { setIsArticleDataSaved } = articleSlice.actions;
+export default articleSlice.reducer;
 
 export const getArticlesAsync = createAsyncThunk("article/getArticles", () =>
     executePromise(ArticleApi.getArticles())
