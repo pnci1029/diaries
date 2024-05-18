@@ -1,7 +1,7 @@
 // import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/toolkit";
 import {Action, configureStore, ThunkAction, ThunkDispatch} from '@reduxjs/toolkit';
 
-import {articleSlice} from "./articleSlice";
+import ArticleSlice, {articleSlice} from "./articleSlice";
 
 // const rootReducer = combineReducers({
 //     potato: 'potatoReducer',
@@ -12,6 +12,7 @@ import {articleSlice} from "./articleSlice";
 
 export const store = configureStore({
     reducer: {
+        article: ArticleSlice,
     },
     // middleware: [],
 });

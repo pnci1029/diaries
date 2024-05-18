@@ -1,44 +1,28 @@
-import {useCallback, useState} from "react";
-import {getArticlesAsync} from "../../store/articleSlice";
-import {ArticleResponseDto} from "../types/Article";
-import {useAppDispatch} from "../../hooks/hooks";
+import { useCallback, useState } from "react";
+import { getArticlesAsync } from "../../store/articleSlice";
+import { ArticleResponseDto } from "../types/Article";
+import { useDispatch } from "react-redux";
 
 interface ReturnType {
-    // getArticles: (title: string) => Promise<ArticleResponseDto>;
-    getArticles: ArticleResponseDto | undefined;
+    getArticles: () => Promise<ArticleResponseDto>;
+    articles: ArticleResponseDto | undefined;
 }
 
-export function useArticleGetter(): { getArticles: () => any } {
-    const dispatch = useAppDispatch();
+export function useArticleGetter(): ReturnType {
+    const dispatch = useDispatch<any>();
+
     const [article, setArticle] = useState<ArticleResponseDto | undefined>();
 
     const getArticles = useCallback(
         async () => {
-            dispatch(getArticlesAsync());
             const result: ArticleResponseDto = await dispatch(getArticlesAsync()).unwrap();
-
-            return {
-                ...result,
-                // content: result.content.map((dto) => ({ ...dto } as ArticleResponseDto)),
-            };
+            setArticle(result);
+            return result;
         },
         [dispatch]
     );
-
-    console.log(getArticles)
-    // const getArticles = useCallback(
-    //     () => {
-    //         return dispatch(getArticlesAsync())
-    //             .unwrap()
-    //             .then((result) => {
-    //                 setArticle(result);
-    //                 return result;
-    //             });
-    //     },
-    //     [dispatch]
-    // );
-
     return {
         getArticles,
+        articles: article,
     };
 }

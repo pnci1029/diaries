@@ -3,15 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6668078b-202f-4bdc-a1ea-774927758e54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/ArticleApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/ArticleApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/MainApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/MainApi.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/article/Article.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/article/Article.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/article/hooks/useArticleGetter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/article/hooks/useArticleGetter.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/article/types/Article.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/article/types/Article.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/store/articleSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/store/articleSlice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/store/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +61,8 @@
       <option name="presentableId" value="Default" />
       <updated>1714798281552</updated>
       <workItem from="1714798282707" duration="15524000" />
-      <workItem from="1714879054947" duration="2242000" />
+      <workItem from="1714879054947" duration="5164000" />
+      <workItem from="1716003268273" duration="2764000" />
     </task>
     <servers />
   </component>
