@@ -24,6 +24,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String tokenValue = request.getHeader("Authorization");
 
+        // TODO: 5/18/24 임시처리
+        if (tokenValue != null) {
+
         if (!tokenValue.isBlank() && tokenValue.startsWith("Bearer ")) {
             String token = tokenValue.substring(7);
 
@@ -41,6 +44,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 }
             }
         }
+        }
+
         filterChain.doFilter(request, response);
     }
 }
