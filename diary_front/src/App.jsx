@@ -1,9 +1,15 @@
-function App() {
+import {useNavigate} from "react-router-dom";
 
+function App() {
+    const navigator = useNavigate();
+
+    function handleCreator() {
+        navigator(`/article`);
+    }
 
   return (
     <>
-      asdasd
+      <button onClick={handleCreator}>게시글</button>
     </>
   );
 }
