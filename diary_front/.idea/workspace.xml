@@ -3,12 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6668078b-202f-4bdc-a1ea-774927758e54" name="Changes" comment="24.05.18 before fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/MainApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/MainApi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/article/Article.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/article/Article.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/store/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/component/hooks/type.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/hooks/type.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../diary_sample/src/main/java/com/example/diary_sample/global/security/jwt/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../diary_sample/src/main/java/com/example/diary_sample/global/security/jwt/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../diary_sample/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../diary_sample/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +62,8 @@
       <updated>1714798281552</updated>
       <workItem from="1714798282707" duration="15524000" />
       <workItem from="1714879054947" duration="5164000" />
-      <workItem from="1716003268273" duration="5823000" />
+      <workItem from="1716003268273" duration="7110000" />
+      <workItem from="1716202847552" duration="1770000" />
     </task>
     <task id="LOCAL-00001" summary="24.05.18 before fix">
       <created>1716006057959</created>
