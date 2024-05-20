@@ -1,4 +1,4 @@
-interface PageResponse<T> {
+export interface PageResponse<T> {
     totalPages: number;
     totalElements: number;
     number: number;

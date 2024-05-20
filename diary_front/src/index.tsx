@@ -7,6 +7,7 @@ import App from "./App";
 import {Provider} from "react-redux";
 import {store} from "./component/store";
 import {ArticleCreator} from "./component/article/ArticleCreator";
+import {WebsocketTest} from "./component/WebsocketTest";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -19,6 +20,7 @@ root.render(
                     </Route>
                     <Route path={"article"} element={<Article/>} >
                     <Route path={"article/create"} element={<ArticleCreator/>}/>
+                    <Route path={"websoooooooooocket"} element={<WebsocketTest/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>
