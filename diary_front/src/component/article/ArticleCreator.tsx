@@ -1,4 +1,4 @@
-export function ArticleCreator() {
+export default function ArticleCreator() {
 
     console.log('creator')
 
@@ -6,5 +6,5 @@ export function ArticleCreator() {
         <>
             <p>creator</p>
         </>
-    )
+    );
 }
