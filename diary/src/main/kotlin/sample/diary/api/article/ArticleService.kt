@@ -16,4 +16,9 @@ class ArticleService (
         val article = articleRepository.save(Article.create(request))
         return ResponseEntity.ok(ArticleResponse.toResponse(article))
     }
+
+    fun getArticles() {
+//        articleRepository.findArticles()
+
+    }
 }
