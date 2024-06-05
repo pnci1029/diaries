@@ -3,15 +3,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id 'org.springframework.boot' version '3.1.1'
     id 'io.spring.dependency-management' version '1.1.4'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.22'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.22'
-    id 'org.jetbrains.kotlin.plugin.noarg' version '1.8.22'
-    id 'org.jetbrains.kotlin.plugin.allopen' version '1.8.22'
-    id 'org.jetbrains.kotlin.kapt' version '1.8.22'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.21'
+    id 'org.jetbrains.kotlin.plugin.noarg' version '1.8.21'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.8.21'
+    id 'org.jetbrains.kotlin.kapt' version '1.8.21'
     id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
-
     id 'idea'
-
 }
 
 group = 'sample'
@@ -44,14 +42,14 @@ dependencies {
 
     implementation 'org.hibernate:hibernate-core:5.6.4.Final'
 
-
     // Swagger
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
     // QueryDSL
+    api 'com.querydsl:querydsl-jpa'
     implementation 'com.querydsl:querydsl-jpa:5.0.0'
-    kapt 'com.querydsl:querydsl-apt:5.0.0'
+    kapt 'com.querydsl:querydsl-apt:5.0.0:jpa'
 }
 
 kapt {
