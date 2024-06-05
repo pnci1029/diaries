@@ -11,7 +11,7 @@ class ArticleSupportImpl(
 ) :ArticleSupport{
 
     override fun getArticles(): Article {
-//        queryFactory.selectFrom()
-//        return
+//        QArticle
+        return Article.create(ArticleServiceRequest("title","content"))
     }
 }
