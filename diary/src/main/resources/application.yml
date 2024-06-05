@@ -31,3 +31,6 @@ springdoc:
     doc-expansion: none
     tagsSorter: alpha
     path: /swagger-ui
+
+server:
+  port: 8880

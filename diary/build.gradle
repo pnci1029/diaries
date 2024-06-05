@@ -1,19 +1,24 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id 'org.springframework.boot' version '3.2.5'
+    id 'org.springframework.boot' version '3.1.1'
     id 'io.spring.dependency-management' version '1.1.4'
     id 'org.jetbrains.kotlin.jvm' version '1.8.22'
     id 'org.jetbrains.kotlin.plugin.spring' version '1.8.22'
-    id 'org.jetbrains.kotlin.plugin.noarg' version "1.7.10"
-    id 'org.jetbrains.kotlin.plugin.allopen' version "1.7.10"
+    id 'org.jetbrains.kotlin.plugin.noarg' version '1.8.22'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.8.22'
+    id 'org.jetbrains.kotlin.kapt' version '1.8.22'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+
+    id 'idea'
+
 }
 
 group = 'sample'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '17'
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 configurations {
@@ -28,7 +33,6 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
@@ -38,33 +42,43 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-    // swagger
-    implementation("io.springfox:springfox-swagger-ui:3.0.0")
-    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation 'org.hibernate:hibernate-core:5.6.4.Final'
 
 
+    // Swagger
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+    // QueryDSL
+    implementation 'com.querydsl:querydsl-jpa:5.0.0'
+    kapt 'com.querydsl:querydsl-apt:5.0.0'
+}
+
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/generated'
 }
 
 allOpen {
-    annotation("jakarta.persistence.Entity")
-    annotation("jakarta.persistence.MappedSuperclass")
-    annotation("jakarta.persistence.Embeddable")
+    annotation 'jakarta.persistence.Entity'
+    annotation 'jakarta.persistence.MappedSuperclass'
+    annotation 'jakarta.persistence.Embeddable'
 }
 
 noArg {
-    annotation("jakarta.persistence.Entity")
+    annotation 'jakarta.persistence.Entity'
 }
 
-tasks.withType(KotlinCompile) {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         freeCompilerArgs += '-Xjsr305=strict'
         jvmTarget = '17'
     }
 }
-
-
 
 tasks.named('bootBuildImage') {
     builder = 'paketobuildpacks/builder-jammy-base:latest'
@@ -72,4 +86,12 @@ tasks.named('bootBuildImage') {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+idea {
+    module {
+        def kaptMain = file("build/generated/source/kapt/main")
+        sourceDirs.add(kaptMain)
+        generatedSourceDirs.add(kaptMain)
+    }
 }
