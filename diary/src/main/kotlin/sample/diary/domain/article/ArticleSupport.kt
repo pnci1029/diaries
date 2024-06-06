@@ -1,5 +1,5 @@
 package sample.diary.domain.article
 
 interface ArticleSupport {
-    fun getArticles(): Article
+    fun getArticles(): List<Article>
 }

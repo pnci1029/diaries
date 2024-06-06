@@ -2,16 +2,19 @@ package sample.diary.domain.article
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
-import sample.diary.dto.article.ArticleRequest
-import sample.diary.dto.article.ArticleServiceRequest
+import sample.diary.domain.article.QArticle.article
 
 @Repository
 class ArticleSupportImpl(
     private val queryFactory: JPAQueryFactory
 ) :ArticleSupport{
 
-    override fun getArticles(): Article {
-//        QArticle
-        return Article.create(ArticleServiceRequest("title","content"))
+    override fun getArticles(): List<Article> {
+        val result = queryFactory
+            .selectFrom(article)
+            .fetch()
+
+//        return Article.create(ArticleServiceRequest("title","content"))
+        return result
     }
 }
