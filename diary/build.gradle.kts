@@ -55,11 +55,6 @@ dependencies {
     implementation("org.hibernate:hibernate-core:5.6.4.Final")
 }
 
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
 
 tasks.withType<Test> {
     useJUnitPlatform()
@@ -69,12 +64,3 @@ sourceSets {
     getByName("main").java.srcDirs(querydslDir)
 }
 
-tasks.withType<JavaCompile> {
-    options.generatedSourceOutputDirectory = file(querydslDir)
-}
-
-tasks.named("clean") {
-    doLast {
-        file(querydslDir).deleteRecursively()
-    }
-}
