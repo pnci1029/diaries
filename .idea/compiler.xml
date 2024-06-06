@@ -14,6 +14,7 @@
       <module name="com.example.diary" target="17" />
       <module name="com.example.diary.main" target="17" />
       <module name="com.example.diary.test" target="17" />
+      <module name="diary.querydsl" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
