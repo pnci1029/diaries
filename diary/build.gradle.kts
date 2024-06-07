@@ -1,32 +1,27 @@
 plugins {
-    java
+//    java
     id("org.springframework.boot") version "3.1.1"
     id("io.spring.dependency-management") version "1.1.5"
     id("org.asciidoctor.jvm.convert") version "3.3.2"
     kotlin("plugin.jpa") version "1.8.21"
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.spring") version "1.8.21"
-    kotlin("kapt") version "1.8.21"
+    kotlin("kapt") version "1.5.0"
 }
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 val queryDslVersion = "5.0.0"
 val querydslDir = "src/main/generated"
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
+
 
 repositories {
     mavenCentral()
 }
-
+//kapt {
+//    keepJavacAnnotationProcessors = true
+//}
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -51,16 +46,31 @@ dependencies {
     // Swagger
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
+    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
 
     implementation("org.hibernate:hibernate-core:5.6.4.Final")
+
+    // mapstruct
+    implementation("org.mapstruct:mapstruct:1.4.2.Final")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.4.2.Final")
+
 }
 
-
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
 tasks.withType<Test> {
     useJUnitPlatform()
 }
 
 sourceSets {
     getByName("main").java.srcDirs(querydslDir)
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
