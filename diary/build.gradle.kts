@@ -15,19 +15,18 @@ val queryDslVersion = "5.0.0"
 val querydslDir = "src/main/generated"
 
 
-
 repositories {
     mavenCentral()
 }
-//kapt {
-//    keepJavacAnnotationProcessors = true
-//}
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    compileOnly("org.projectlombok:lombok")
+//    코틀린에서 롬복 불가
+//    implementation("org.projectlombok:lombok")
+//    annotationProcessor("org.projectlombok:lombok")
+
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -39,38 +38,24 @@ dependencies {
     kapt("com.querydsl:querydsl-jpa")
     implementation("com.querydsl:querydsl-jpa:5.0.0")
     kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
-//    implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
-//    kapt("jakarta.annotation:jakarta.annotation-api")
-//    kapt("jakarta.persistence:jakarta.persistence-api")
 
     // Swagger
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
-    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
-
 
     implementation("org.hibernate:hibernate-core:5.6.4.Final")
 
-    // mapstruct
-    implementation("org.mapstruct:mapstruct:1.4.2.Final")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.4.2.Final")
-
+    implementation("org.mapstruct:mapstruct:1.5.2.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.5.2.Final")
 }
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+
+// src/main/ java or kotlin 문제 처리
 sourceSets {
-    getByName("main").java.srcDirs(querydslDir)
+    getByName("main").java.srcDirs(querydslDir, "src/main/kotlin")
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
