@@ -16,8 +16,8 @@ class ArticleService (
         return ResponseEntity.ok(ArticleResponse.toResponse(article))
     }
 
-    fun getArticles() {
-        articleRepository.getArticles()
+    fun getArticles():MutableList<Article> {
+        return articleRepository.getArticles()
 
     }
 }

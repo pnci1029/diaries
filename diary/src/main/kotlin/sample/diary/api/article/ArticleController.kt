@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import sample.diary.domain.article.Article
 import sample.diary.dto.article.ArticleRequest
 import sample.diary.dto.article.ArticleResponse
 
@@ -37,8 +38,8 @@ class ArticleController (
         )]
     )
         // TODO: 검색 파라미터
-    fun getArticles() {
-        articleService.getArticles()
+    fun getArticles():MutableList<Article> {
+        return articleService.getArticles()
 //        val toDto = articleDtoMapper.toSummaryDTO("11","22")
     }
 }

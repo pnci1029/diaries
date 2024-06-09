@@ -9,7 +9,7 @@ class ArticleSupportImpl(
     private val queryFactory: JPAQueryFactory
 ) :ArticleSupport{
 
-    override fun getArticles(): List<Article> {
+    override fun getArticles(): MutableList<Article> {
         val result = queryFactory
             .selectFrom(article)
             .fetch()
