@@ -15,6 +15,8 @@ class Article (
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
     var imageList: MutableList<Image>
 ){
+    constructor() : this(0,"", "", 0, mutableListOf())
+
     companion object {
         fun create(request: ArticleServiceRequest): Article {
             return Article(
@@ -27,5 +29,4 @@ class Article (
         }
     }
 
-    constructor() : this(0,"", "", 0, mutableListOf())
 }

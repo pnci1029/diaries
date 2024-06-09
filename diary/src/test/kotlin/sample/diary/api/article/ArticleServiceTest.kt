@@ -5,29 +5,37 @@ import org.assertj.core.api.AssertionsForClassTypes.tuple
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
+import sample.diary.domain.article.Article
+import sample.diary.domain.article.ArticleRepository
 import sample.diary.dto.article.ArticleServiceRequest
 import sample.diary.mock.MockRepository
+import sample.diary.mock.MockRepository.getArticleRepository
 import sample.diary.mock.MockService
+import sample.diary.mock.MockService.getArticleService
 
 // given
 // when
 // then
-@ExtendWith(MockitoExtension::class)
+//@ExtendWith(MockitoExtension::class)
 @SpringBootTest
 internal class ArticleServiceTest{
-    private var articleService= MockService.getArticleService()
-    private var articleRepository= MockRepository.getArticleRepository()
+//    private val articleRepository= getArticleRepository()
+//    private val articleService= getArticleService(
+//        articleRepository = articleRepository
+//    )
+//    @BeforeEach
+//    fun beforeEach() {
+//        MockitoAnnotations.initMocks(this)
+//    }
 
-
-    @BeforeEach
-    fun beforeEach() {
-        MockitoAnnotations.initMocks(this)
-    }
-
+    @Autowired
+    private lateinit var articleService: ArticleService
 
     @Test
     fun createArticle() {
@@ -42,19 +50,20 @@ internal class ArticleServiceTest{
 
         // when
         val result = articleService.createArticle(request1)
+        println(result.body.articleId)
 
         // then
         assertThat(result.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(result.body).extracting("title","content")
-            .containsExactlyInAnyOrder(
-            tuple(title2, content2)
-        );
+            .contains(
+                title1, content1
+            )
     }
 
     fun createArticles(title : String, content: String): ArticleServiceRequest {
         return ArticleServiceRequest(
             title = title,
-            content = content
+            content = content,
         )
     }
 

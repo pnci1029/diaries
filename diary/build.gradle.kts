@@ -35,10 +35,12 @@ dependencies {
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
 
-
     // MapStruct
     implementation("org.mapstruct:mapstruct:1.5.2.Final")
     kapt("org.mapstruct:mapstruct-processor:1.5.2.Final")
+
+    // Slf4j
+//    implementation("org.slf4j:slf4j-api:1.7.32")
 }
 
 tasks.withType<Test> {

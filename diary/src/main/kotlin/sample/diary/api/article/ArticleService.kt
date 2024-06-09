@@ -9,7 +9,7 @@ import sample.diary.dto.article.ArticleServiceRequest
 
 @Service
 class ArticleService (
-    val articleRepository: ArticleRepository,
+    private val articleRepository: ArticleRepository,
         ){
     fun createArticle(request: ArticleServiceRequest) : ResponseEntity<ArticleResponse> {
         val article = articleRepository.save(Article.create(request))

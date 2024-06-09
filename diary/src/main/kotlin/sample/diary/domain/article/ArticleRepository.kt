@@ -1,8 +1,8 @@
 package sample.diary.domain.article
 
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ArticleRepository: CrudRepository<Article, Long>, ArticleSupport {
+interface ArticleRepository: JpaRepository<Article, Long>, ArticleSupport {
 }
