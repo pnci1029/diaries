@@ -26,4 +26,6 @@ class Article (
             )
         }
     }
+
+    constructor() : this(0,"", "", 0, mutableListOf())
 }
