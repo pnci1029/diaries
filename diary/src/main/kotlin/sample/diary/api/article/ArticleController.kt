@@ -4,13 +4,12 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.responses.ApiResponse
-import lombok.RequiredArgsConstructor
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import sample.diary.dto.article.ArticleRequest
 import sample.diary.dto.article.ArticleResponse
 
-@RestController @RequiredArgsConstructor
+@RestController
 @RequestMapping("/api/article")
 class ArticleController (
 //    val articleDtoMapper: ArticleDtoMapper,

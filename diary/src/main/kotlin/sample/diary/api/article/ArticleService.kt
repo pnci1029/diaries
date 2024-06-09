@@ -1,6 +1,5 @@
 package sample.diary.api.article
 
-import lombok.RequiredArgsConstructor
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import sample.diary.domain.article.Article
@@ -8,7 +7,7 @@ import sample.diary.domain.article.ArticleRepository
 import sample.diary.dto.article.ArticleResponse
 import sample.diary.dto.article.ArticleServiceRequest
 
-@Service @RequiredArgsConstructor
+@Service
 class ArticleService (
     val articleRepository: ArticleRepository,
         ){
@@ -18,7 +17,7 @@ class ArticleService (
     }
 
     fun getArticles() {
-//        articleRepository.findArticles()
+        articleRepository.getArticles()
 
     }
 }
